@@ -21,9 +21,19 @@ Route::get('/buildings', [BuildingController::class, 'index']);
 
 Route::get('/building/{id}', [BuildingController::class, 'show']);
 
+Route::get('/room/create', [RoomController::class, 'create']);
+
+Route::post('/room', [RoomController::class, 'store']);
+
 Route::get('room/{id}', [RoomController::class, 'show']);
 
 Route::get('rooms', [RoomController::class, 'index']);
+
+Route::get('/room/edit/{id}', [RoomController::class, 'edit']);
+
+Route::post('/room/update/{id}', [RoomController::class, 'update']);
+
+Route::get('/room/destroy/{id}', [RoomController::class, 'destroy']);
 
 Route::get('/guests', function (){
     return view('guests',['guests' => Guest::orderBy('id')->get()]);
@@ -40,6 +50,8 @@ Route::get('/accommodation/{id}', [AccommodationController::class, 'show']);
 Route::get('/services', [ServiceController::class, 'index']);
 
 Route::get('/service/{id}', [ServiceController::class, 'show']);
+
+
 
 
 

@@ -16,6 +16,7 @@
             <th>Room Number</th>
             <th>Sleeps</th>
             <th>Price</th>
+            <th>Actions</th>
         </thead>
         @foreach($rooms as $room)
             <tr>
@@ -24,6 +25,10 @@
                 <td>{{$room->number}}</td>
                 <td>{{$room->sleeps}}</td>
                 <td>{{$room->price}}</td>
+                <td>
+                    <a href="{{ url('room/edit/' .$room->id) }}"> Edit </a>
+                    <a href="{{ url('room/destroy/' .$room->id) }}"> Delete </a>
+                </td>
             </tr>
         @endforeach
     </table>

@@ -8,7 +8,7 @@
     <title>Building</title>
 </head>
 <body>
-<h2>List of Building</h2>
+<h2>List of Buildings</h2>
 <table>
     <thead>
     <td>id</td>
