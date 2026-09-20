@@ -8,8 +8,11 @@ use Illuminate\Http\Request;
 
 class RoomController extends Controller
 {
-    public function index(){
-        return view('rooms', ['rooms' => Room::orderBy('id')->get()]);
+    public function index(Request $request){
+        $perpage = $request->perpage ?? 2;
+        return view('rooms', [
+            'rooms' => Room::orderBy('id')->paginate($perpage)->withQueryString()
+        ]);
     }
 
     public function show($id){

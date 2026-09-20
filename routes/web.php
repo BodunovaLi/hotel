@@ -35,6 +35,8 @@ Route::post('/room/update/{id}', [RoomController::class, 'update']);
 
 Route::get('/room/destroy/{id}', [RoomController::class, 'destroy']);
 
+
+
 Route::get('/guests', function (){
     return view('guests',['guests' => Guest::orderBy('id')->get()]);
 } );
