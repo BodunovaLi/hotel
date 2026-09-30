@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccommodationController;
 use App\Http\Controllers\BuildingController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\ServiceController;
 use App\Models\Accommodation;
@@ -21,20 +22,19 @@ Route::get('/buildings', [BuildingController::class, 'index']);
 
 Route::get('/building/{id}', [BuildingController::class, 'show']);
 
-Route::get('/room/create', [RoomController::class, 'create']);
-
 Route::post('/room', [RoomController::class, 'store']);
 
 Route::get('room/{id}', [RoomController::class, 'show']);
 
 Route::get('rooms', [RoomController::class, 'index']);
 
-Route::get('/room/edit/{id}', [RoomController::class, 'edit']);
+Route::get('/room/create', [RoomController::class, 'create'])->middleware('auth');
 
-Route::post('/room/update/{id}', [RoomController::class, 'update']);
+Route::get('/room/edit/{id}', [RoomController::class, 'edit'])->middleware('auth');
 
-Route::get('/room/destroy/{id}', [RoomController::class, 'destroy']);
+Route::post('/room/update/{id}', [RoomController::class, 'update'])->middleware('auth');
 
+Route::get('/room/destroy/{id}', [RoomController::class, 'destroy'])->middleware('auth');
 
 
 Route::get('/guests', function (){
@@ -53,6 +53,15 @@ Route::get('/services', [ServiceController::class, 'index']);
 
 Route::get('/service/{id}', [ServiceController::class, 'show']);
 
+Route::get('/login', [LoginController::class, 'login'])->name('login');
+
+Route::get('/logout', [LoginController::class, 'logout']);
+
+Route::post('/auth', [LoginController::class, 'authenticate']);
+
+Route::get('/error', function () {
+    return view('error', ['message'=> session('message')]);
+});
 
 
 
