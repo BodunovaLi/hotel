@@ -9,13 +9,15 @@ use App\Models\Accommodation;
 use App\Models\Booking;
 use App\Models\Guest;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RegisterController;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    if (Auth::check()) {
+        return view('home');
+    }
 
-Route::get('/hello', function () {
-    return view('hello', ['title' => 'Hello World']);
+    return view('welcome');
 });
 
 Route::get('/buildings', [BuildingController::class, 'index']);
@@ -24,11 +26,12 @@ Route::get('/building/{id}', [BuildingController::class, 'show']);
 
 Route::post('/room', [RoomController::class, 'store']);
 
-Route::get('room/{id}', [RoomController::class, 'show']);
-
 Route::get('rooms', [RoomController::class, 'index']);
 
-Route::get('/room/create', [RoomController::class, 'create'])->middleware('auth');
+Route::get('/room/create', [RoomController::class, 'create'])
+    ->middleware('auth');
+
+Route::get('/room/{id}', [RoomController::class, 'show']);
 
 Route::get('/room/edit/{id}', [RoomController::class, 'edit'])->middleware('auth');
 
@@ -63,6 +66,12 @@ Route::get('/error', function () {
     return view('error', ['message'=> session('message')]);
 });
 
+Route::get('/register', [RegisterController::class, 'create'])
+    ->middleware('guest')
+    ->name('register');
 
+Route::post('/register', [RegisterController::class, 'store'])
+    ->middleware('guest')
+    ->name('register.store');
 
 

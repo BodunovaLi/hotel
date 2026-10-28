@@ -1,28 +1,19 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Services</title>
-</head>
-<body>
-    <h2>List of services</h2>
-    <table>
-        <thead>
-            <td>id</td>
-            <td>name</td>
-            <td>price</td>
-        </thead>
+@extends('layout')
+
+@section('content')
+    <x-table
+        title="Services"
+        description="View additional hotel services."
+        :columns="['ID', 'Name', 'Price']"
+        :empty="$services->isEmpty()"
+        empty-message="No services found."
+    >
         @foreach($services as $service)
             <tr>
-                <td>{{$service->id}}</td>
-                <td>{{$service->name}}</td>
-                <td>{{$service->price}}</td>
+                <td class="px-4 py-3 text-secondary">{{ $service->id }}</td>
+                <td class="px-4 py-3">{{ $service->name }}</td>
+                <td class="px-4 py-3">{{ number_format($service->price, 0, '.', ' ') }} ₽</td>
             </tr>
         @endforeach
-    </table>
-
-</body>
-</html>
+    </x-table>
+@endsection

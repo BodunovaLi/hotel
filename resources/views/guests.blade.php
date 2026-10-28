@@ -1,27 +1,19 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Guests</title>
-</head>
-<body>
-    <h2>List of guests</h2>
-    <table>
-        <thead>
-            <td>id</td>
-            <td>name</td>
-            <td>phone</td>
-        </thead>
+@extends('layout')
+
+@section('content')
+    <x-table
+        title="Guests"
+        description="View guest information."
+        :columns="['ID', 'Name', 'Phone']"
+        :empty="$guests->isEmpty()"
+        empty-message="No guests found."
+    >
         @foreach($guests as $guest)
             <tr>
-                <td>{{$guest->id}}</td>
-                <td>{{$guest->name}}</td>
-                <td>{{$guest->phone}}</td>
+                <td class="px-4 py-3 text-secondary">{{ $guest->id }}</td>
+                <td class="px-4 py-3">{{ $guest->name }}</td>
+                <td class="px-4 py-3">{{ $guest->phone }}</td>
             </tr>
         @endforeach
-    </table>
-</body>
-</html>
+    </x-table>
+@endsection

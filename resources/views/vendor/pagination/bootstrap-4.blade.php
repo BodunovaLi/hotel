@@ -44,12 +44,11 @@
         </ul>
     </nav>
     Elements on the page
-    <form method="get" action="{{ url('rooms') }}">
-        <select name="perpage">
+    <x-form method="get" :action="url('rooms')" :inline="true" submit-label="Apply">
+        <select name="perpage" class="form-select w-auto">
             <option value="2" @if($paginator->perPage()==2) selected @endif>2</option>
             <option value="3" @if($paginator->perPage()==3) selected @endif>3</option>
             <option value="4" @if($paginator->perPage()==4) selected @endif>4</option>
         </select>
-        <input type="submit">
-    </form>
+    </x-form>
 @endif

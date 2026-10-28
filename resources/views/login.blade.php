@@ -1,38 +1,43 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <style> .is-invalid {color: red}</style>
-    <title>Document</title>
-</head>
-<body>
-@if($user)
-   <h2>Hello, {{$user->name}}</h2>
-   <a href="{{url('logout')}}">Exit</a>
-@else
-    <h2>Log in</h2>
-    <form method="post" action="{{url('auth')}}">
-        @csrf
-        <label>E-mail</label>
-        <input type="text" name="email" value="{{old('email')}}">
-        @error('email')
-        <div class="is-invalid">{{$message}}</div>
-        @enderror
-        <br>
-        <label>Password</label>
-        <input type="password" name="password" >
-        @error('password')
-        <div class="is-invalid">{{ $message }}</div>
-        @enderror
-        <br>
-        <input type="submit">
-        @error('error')
-        <div class="is-invalid">{{ $message }}</div>
-        @enderror
-    </form>
-@endif
-</body>
-</html>
+@extends('layout')
+
+@section('content')
+    <x-form title="Log in" :action="url('auth')" submit-label="Log in">
+
+        <div class="mb-3">
+            <label for="email" class="form-label">
+                Email
+            </label>
+
+            <input
+                id="email"
+                type="email"
+                name="email"
+                value="{{ old('email') }}"
+                class="form-control @error('email') is-invalid @enderror"
+                autocomplete="username"
+                required
+            >
+
+        </div>
+
+        <div class="mb-3">
+            <label for="password" class="form-label">
+                Password
+            </label>
+
+            <input
+                id="password"
+                type="password"
+                name="password"
+                class="form-control @error('password') is-invalid @enderror"
+                autocomplete="current-password"
+                required
+            >
+
+        </div>
+
+        <x-slot:footer>
+            No account yet? <a href="{{ route('register') }}">Sign up</a>
+        </x-slot:footer>
+    </x-form>
+@endsection

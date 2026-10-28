@@ -42,7 +42,7 @@ class RoomController extends Controller
         $room = Room::all()->where('id', $id)->first();
 
         if (! Gate::allows('edit-room', $room)){
-            return redirect('/error')->with('message',
+            return redirect('/rooms')->with('message',
                 'You do not have permission to edit the room with id ' .$id);
         }
 
@@ -71,12 +71,14 @@ class RoomController extends Controller
     }
 
     public function destroy(string $id){
-        if (! Gate::allows('delete-room', Room::all()->where('id', $id)->first())){
-            return redirect('/error')->with('message',
+        if (! Gate::allows('destroy-room', Room::all()->where('id', $id)->first())){
+            return redirect('/rooms')->with('message',
                 'You do not have permission to delete the room with id ' .$id);
         }
 
         Room::destroy($id);
-        return redirect('/rooms');
+        return redirect('/rooms')->withErrors([
+            'success' => 'Room deleted successfully.',
+        ]);
     }
 }

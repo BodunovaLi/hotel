@@ -1,25 +1,18 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Building</title>
-</head>
-<body>
-<h2>List of Buildings</h2>
-<table>
-    <thead>
-    <td>id</td>
-    <td>Name</td>
-    </thead>
-    @foreach($buildings as $building)
-        <tr>
-            <td>{{$building->id}}</td>
-            <td>{{$building->name}}</td>
-        </tr>
-    @endforeach
-</table>
-</body>
-</html>
+@extends('layout')
+
+@section('content')
+    <x-table
+        title="Buildings"
+        description="View hotel buildings."
+        :columns="['ID', 'Name']"
+        :empty="$buildings->isEmpty()"
+        empty-message="No buildings found."
+    >
+        @foreach($buildings as $building)
+            <tr>
+                <td class="px-4 py-3 text-secondary">{{ $building->id }}</td>
+                <td class="px-4 py-3">{{ $building->name }}</td>
+            </tr>
+        @endforeach
+    </x-table>
+@endsection

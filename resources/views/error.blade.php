@@ -1,14 +1,26 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <h2>{{ $message }}</h2>
-    <a href="{{url('rooms')}}">Back</a>
-</body>
-</html>
+@if($errors->hasAny(['email', 'password', 'error', 'success']) || session('message'))
+    <div class="container mt-4">
+        @error('email')
+            <div class="alert alert-warning" role="alert">{{ $message }}</div>
+        @enderror
+
+        @error('password')
+            <div class="alert alert-warning" role="alert">{{ $message }}</div>
+        @enderror
+
+        @error('error')
+            <div class="alert alert-danger" role="alert">{{ $message }}</div>
+        @enderror
+
+        @error('success')
+            <div class="alert alert-success" role="alert">{{ $message }}</div>
+        @enderror
+
+        @if(session('message'))
+            <div class="alert alert-warning d-flex align-items-center gap-2" role="alert">
+                <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+                <span>{{ session('message') }}</span>
+            </div>
+        @endif
+    </div>
+@endif
